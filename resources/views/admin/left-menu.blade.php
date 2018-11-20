@@ -67,7 +67,7 @@
             <li class="active">
               <a><i class="fa fa-object-ungroup"></i> Services <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu {{ request()->routeIs('admin.service*') ? 'active' : ''}}">
-                  <li class="{{ request()->routeIs('admin.service-type.list') ? 'current-page' : '' }}"><a href="{{ route('admin.service.list') }}">Services</a></li>
+                  {{-- <li class="{{ request()->routeIs('admin.service-type.list') ? 'current-page' : '' }}"><a href="{{ route('admin.service.list') }}">Services</a></li> --}}
                   <li class="{{ request()->routeIs('admin.service-type.list') ? 'current-page' : '' }}"><a href="{{ route('admin.service-type.list') }}">Types</a></li>
               </ul>
             </li>
