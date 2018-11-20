@@ -31,7 +31,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::prefix('types')->group(function(){
                 Route::get('/', 'ServiceController@listTypes')->name('admin.service-type.list');
                 Route::get('add', 'ServiceController@addType')->name('admin.service-type.add');
-                Route::post('save', 'ServiceController@addType')->name('admin.service-type.save');
+                Route::post('save/{servicetype?}', 'ServiceController@saveType')->name('admin.service-type.save');
             });
             //users groups routes
             Route::prefix('groups')->group(function(){
