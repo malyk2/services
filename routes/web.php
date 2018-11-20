@@ -32,8 +32,8 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/', 'ServiceController@listServices')->name('admin.service.list');
             Route::get('add', 'ServiceController@addService')->name('admin.service.add');
             Route::post('save/{service?}', 'ServiceController@saveService')->name('admin.service.save');
-            // Route::get('edit/{serviceType}', 'ServiceController@editType')->name('admin.service-type.edit');
-            // Route::get('delete/{serviceType}', 'ServiceController@deleteType')->name('admin.service-type.delete');
+            Route::get('edit/{service}', 'ServiceController@editServise')->name('admin.service.edit');
+            Route::get('delete/{service}', 'ServiceController@deleteService')->name('admin.service.delete');
             Route::prefix('types')->group(function(){
                 Route::get('/', 'ServiceController@listTypes')->name('admin.service-type.list');
                 Route::get('add', 'ServiceController@addType')->name('admin.service-type.add');

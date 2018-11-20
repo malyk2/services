@@ -67,10 +67,10 @@
                                                 </button>
                                                 <ul role="menu" class="dropdown-menu">
                                                     <li>
-                                                        <a href="{{ route('admin.service-type.edit', [$item->id]) }}">Edit</a>
+                                                        <a href="{{ route('admin.service.edit', [$item->id]) }}">Edit</a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.service-type.delete', [$item->id]) }}">Delete</a>
+                                                        <a href="{{ route('admin.service.delete', [$item->id]) }}">Delete</a>
                                                     </li>
                                                 </ul>
                                             </div>

@@ -42,6 +42,19 @@ class ServiceController extends Controller
         return redirect()->route('admin.service.list')->pnotify('Data saved', '','success');
     }
 
+    public function editServise(Service $service)
+    {
+        $types = ServiceType::get();
+        $item = $service;
+        return view('admin.service.form', compact('item','types'));
+    }
+
+    public function deleteService(Service $service)
+    {
+        $service->delete();
+        return redirect()->route('admin.service.list')->pnotify('Deleted', '','success');
+    }
+
     public function listTypes()
     {
         $items = ServiceType::paginate(ServiceType::PAGINATE_PER_PAGE);
