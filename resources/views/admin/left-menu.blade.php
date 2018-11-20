@@ -65,17 +65,9 @@
               {{-- </ul> --}}
             {{-- </li> --}}
             <li class="active">
-              <a><i class="fa fa-users"></i> Services <span class="fa fa-chevron-down"></span></a>
-              <ul class="nav child_menu {{ request()->routeIs('user*') ? 'active' : ''}}">
-                {{-- @permission('users.manage') --}}
-                  <li class="{{ request()->routeIs('user.listUsers') ? 'current-page' : '' }}"><a href="{{ route('user.listUsers') }}">Список користувачів</a></li>
-                {{-- @endpermission --}}
-                {{-- @permission('groups.manage') --}}
-                  <li><a href="{{ route('user.listGroups') }}">Групи користувачів</a></li>
-                {{-- @endpermission --}}
-                {{-- @permission('roles.manage') --}}
-                  <li><a href="{{ route('user.listRoles') }}">Ролі користувачів</a></li>
-                {{-- @endpermission --}}
+              <a><i class="fa fa-object-ungroup"></i> Services <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu {{ request()->routeIs('admin.service*') ? 'active' : ''}}">
+                  <li class="{{ request()->routeIs('admin.service-type.list') ? 'current-page' : '' }}"><a href="{{ route('admin.service-type.list') }}">Types</a></li>
               </ul>
             </li>
             {{-- @endpermission --}}
