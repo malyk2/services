@@ -35,8 +35,8 @@
           <img src="{{ asset('images/avatar.png') }}" alt="..." class="img-circle profile_img">
         </div>
         <div class="profile_info">
-          <span>Користувач</span>
-          <h2>{{ auth()->user()->pib }}</h2>
+          <span>User</span>
+          <h2>{{ auth()->user()->name }}</h2>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -67,7 +67,7 @@
             <li class="active">
               <a><i class="fa fa-object-ungroup"></i> Services <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu {{ request()->routeIs('admin.service*') ? 'active' : ''}}">
-                  {{-- <li class="{{ request()->routeIs('admin.service-type.list') ? 'current-page' : '' }}"><a href="{{ route('admin.service.list') }}">Services</a></li> --}}
+                  <li class="{{ request()->routeIs('admin.service.list') ? 'current-page' : '' }}"><a href="{{ route('admin.service.list') }}">Services</a></li>
                   <li class="{{ request()->routeIs('admin.service-type.list') ? 'current-page' : '' }}"><a href="{{ route('admin.service-type.list') }}">Types</a></li>
               </ul>
             </li>
