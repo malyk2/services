@@ -25,12 +25,12 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        @include('left-menu')
+        @include('admin.left-menu')
 
-        @include('top-menu')
+        @include('admin.top-menu')
         @yield('content')
 
-        @include('footer')
+        @include('admin.footer')
         <!-- /footer content -->
       </div>
     </div>

@@ -16,12 +16,12 @@
 // });
 Route::prefix('admin')->namespace('Admin')->group(function(){
     //public routes
-    Route::get('login', 'AuthController@form')->name('admin.form');
+    Route::get('login', 'AuthController@form')->name('login');
     Route::post('login', 'AuthController@login')->name('admin.login');
 
     //private routes
-    Route::middleware('auth','lifetime')->group(function() {
-        Route::get('', 'HomeController@index')->name('home');
+    Route::middleware('auth')->group(function() {
+        Route::get('', 'HomeController@index')->name('admin.home');
         Route::get('logout', 'AuthController@logout')->name('logout');
         Route::get('profile', 'HomeController@profileForm')->name('profile.form');
         Route::post('profile', 'HomeController@profileSave')->name('profile.save');

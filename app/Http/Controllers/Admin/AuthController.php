@@ -20,18 +20,17 @@ class AuthController extends Controller
         if (auth()->attempt($data)) {
             if ( ! auth()->user()->can('login')) {
                 auth()->logout();
-                return redirect()->back()->pnotify('Доступ заборонено', '','error');
+                return redirect()->back()->pnotify('Access is prohibited', '','error');
             }
-            return redirect()->intended(route('home'))->pnotify('Авторизація успішна', '', 'success');
+            return redirect()->intended(route('admin.home'))->pnotify('Authorization is successful', '', 'success');
         } else {
-            dd('asd');
-            return redirect()->back()->pnotify('Помилка', 'Невірний логін та/або пароль', 'error');
+            return redirect()->back()->pnotify('Error', 'Invalid login and / or password', 'error');
         }
     }
 
     public function logout()
     {
         auth()->logout();
-        return redirect()->route('login')->pnotify('Сесію завершено', '','info');
+        return redirect()->route('login')->pnotify('Logout', '','info');
     }
 }

@@ -24,7 +24,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
       <div class="navbar nav_title" style="border: 0;">
-        <a href="javascript:;" class="site_title"><i class="fa fa-object-ungroup"></i> <span>Smart services</span></a>
+        <a href="javascript:;" class="site_title"><i class="fa fa-object-ungroup"></i> <span>Services</span></a>
       </div>
 
       <div class="clearfix"></div>
@@ -49,22 +49,36 @@
         <div class="menu_section">
           <h3>Управління</h3>
           <ul class="nav side-menu">
-            @permission(['users.manage', 'groups.manage', 'roles.manage'])
+            {{-- @permission(['users.manage', 'groups.manage', 'roles.manage']) --}}
+            {{-- <li class="active"> --}}
+              {{-- <a><i class="fa fa-users"></i> Користувачі <span class="fa fa-chevron-down"></span></a>
+              <ul class="nav child_menu {{ request()->routeIs('user*') ? 'active' : ''}}"> --}}
+                {{-- @permission('users.manage') --}}
+                  {{-- <li class="{{ request()->routeIs('user.listUsers') ? 'current-page' : '' }}"><a href="{{ route('user.listUsers') }}">Список користувачів</a></li> --}}
+                {{-- @endpermission --}}
+                {{-- @permission('groups.manage') --}}
+                  {{-- <li><a href="{{ route('user.listGroups') }}">Групи користувачів</a></li> --}}
+                {{-- @endpermission --}}
+                {{-- @permission('roles.manage') --}}
+                  {{-- <li><a href="{{ route('user.listRoles') }}">Ролі користувачів</a></li> --}}
+                {{-- @endpermission --}}
+              {{-- </ul> --}}
+            {{-- </li> --}}
             <li class="active">
-              <a><i class="fa fa-users"></i> Користувачі <span class="fa fa-chevron-down"></span></a>
+              <a><i class="fa fa-users"></i> Services <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu {{ request()->routeIs('user*') ? 'active' : ''}}">
-                @permission('users.manage')
+                {{-- @permission('users.manage') --}}
                   <li class="{{ request()->routeIs('user.listUsers') ? 'current-page' : '' }}"><a href="{{ route('user.listUsers') }}">Список користувачів</a></li>
-                @endpermission
-                @permission('groups.manage')
+                {{-- @endpermission --}}
+                {{-- @permission('groups.manage') --}}
                   <li><a href="{{ route('user.listGroups') }}">Групи користувачів</a></li>
-                @endpermission
-                @permission('roles.manage')
+                {{-- @endpermission --}}
+                {{-- @permission('roles.manage') --}}
                   <li><a href="{{ route('user.listRoles') }}">Ролі користувачів</a></li>
-                @endpermission
+                {{-- @endpermission --}}
               </ul>
             </li>
-            @endpermission
+            {{-- @endpermission --}}
           </ul>
         </div>
       </div>
@@ -72,7 +86,7 @@
 
       <!-- /menu footer buttons -->
       <div class="sidebar-footer hidden-small">
-        <a href="{{ route('home') }}" data-toggle="tooltip" data-placement="top" title="Домівка">
+        <a href="{{ route('admin.home') }}" data-toggle="tooltip" data-placement="top" title="Home">
           <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
         </a>
         <a href="{{ route('profile.form') }}" data-toggle="tooltip" data-placement="top" title="Settings">
