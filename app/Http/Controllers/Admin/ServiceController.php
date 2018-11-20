@@ -23,11 +23,22 @@ class ServiceController extends Controller
         return view('admin.service.form-types');
     }
 
+    public function editType(ServiceType $serviceType)
+    {
+        return view('admin.service.form-types', ['item'=>$serviceType]);
+    }
+
     public function saveType(SaveServiceRequest $request, ServiceType $serviceType)
     {
         $data = $request->validated();
         $serviceType->fill($data);
         $serviceType->save();
         return redirect()->route('admin.service-type.list')->pnotify('Data saved', '','success');
+    }
+
+    public function deleteType(ServiceType $serviceType)
+    {
+        $serviceType->delete();
+        return redirect()->route('admin.service-type.list')->pnotify('Deleted', '','success');
     }
 }
