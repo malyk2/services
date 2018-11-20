@@ -54,16 +54,12 @@
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul role="menu" class="dropdown-menu">
-                                                    {{-- @if($user->canEdit())
-                                                        <li>
-                                                            <a href="{{ route('user.editUser', [$user->id]) }}">Редагувати</a>
-                                                        </li>
-                                                    @endif
-                                                    @if($user->canDelete())
-                                                        <li>
-                                                            <a href="{{ route('user.deleteUser', [$user->id]) }}">Видалити</a>
-                                                        </li>
-                                                    @endif --}}
+                                                    <li>
+                                                        <a href="{{ route('admin.service-type.edit', [$item->id]) }}">Edit</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ route('admin.service-type.delete', [$item->id]) }}">Delete</a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </td>
