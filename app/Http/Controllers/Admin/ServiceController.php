@@ -14,7 +14,7 @@ class ServiceController extends Controller
     public function listServices()
     {
         $me = auth()->user();
-        $items = $me->services()->paginate(Service::PAGINATE_PER_PAGE);
+        $items = $me->services()->with('type')->paginate(Service::PAGINATE_PER_PAGE);
         return view('admin.service.list', compact('items'));
     }
 

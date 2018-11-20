@@ -25,12 +25,20 @@ class Service extends Model
     ];
 
     /**Start Relations */
+    public function type()
+    {
+        return $this->belongsTo(ServiceType::class);
+    }
     /**End Relations */
 
     /**Start Scopes*/
     /**End Scopes */
 
     /**Start Mutators*/
+    public function getDurationHoursAttribute()
+    {
+        return secondsToHour($this->duration);
+    }
     /**End Mutators */
 
     /**Start Helper*/

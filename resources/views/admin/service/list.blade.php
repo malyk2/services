@@ -38,7 +38,10 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Duration</th>
+                                    <th>Price</th>
+                                    <th>Range</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -46,7 +49,16 @@
                                 @foreach($items as $item)
                                     <tr>
                                         <td>
-                                            {{ $item->name }}
+                                            {{ $item->type->name }}
+                                        </td>
+                                        <td>
+                                            {{ $item->duration_hours }}
+                                        </td>
+                                        <td>
+                                            {{ $item->price }}
+                                        </td>
+                                        <td>
+                                            {{ $item->from->format('d.m.Y').' - '.$item->to->format('d.m.Y') }}
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group">

@@ -35,8 +35,8 @@
           <img src="{{ asset('images/avatar.png') }}" alt="..." class="img-circle profile_img">
         </div>
         <div class="profile_info">
-          <span>Користувач</span>
-          <h2>{{ auth()->user()->pib }}</h2>
+          <span>User</span>
+          <h2>{{ auth()->user()->name }}</h2>
         </div>
         <div class="clearfix"></div>
       </div>

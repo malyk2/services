@@ -40,3 +40,11 @@ if (! function_exists('stringToCarbon')) {
         }
     }
 }
+
+if (! function_exists('secondsToHour')) {
+
+    function secondsToHour($seconds, $format = 'H:i')
+    {
+        return gmdate($format, $seconds);
+    }
+}
