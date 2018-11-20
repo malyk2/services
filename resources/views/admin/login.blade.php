@@ -1,9 +1,9 @@
-@extends('layouts.basic')
+@extends('admin.layouts.basic')
 @section('content')
 <div class="login_wrapper">
     <div class="animate form login_form">
         <section class="login_content">
-            <form action="{{ route('login') }}" method="post">
+            <form action="{{ route('admin.login') }}" method="post">
                 @csrf
                 <h1>Sign in</h1>
                 <div class="form-group">

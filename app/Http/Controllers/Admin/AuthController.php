@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function form()
     {
-        return view('login');
+        return view('admin.login');
     }
 
     public function login(LoginRequests $request)
@@ -24,6 +24,7 @@ class AuthController extends Controller
             }
             return redirect()->intended(route('home'))->pnotify('Авторизація успішна', '', 'success');
         } else {
+            dd('asd');
             return redirect()->back()->pnotify('Помилка', 'Невірний логін та/або пароль', 'error');
         }
     }

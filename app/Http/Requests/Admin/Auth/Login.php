@@ -24,7 +24,7 @@ class Login extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ];
     }
@@ -32,8 +32,8 @@ class Login extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'логін',
-            'password' => 'пароль',
+            'email' => 'Email',
+            'password' => 'password',
         ];
     }
 }

@@ -16,8 +16,8 @@
 // });
 Route::prefix('admin')->namespace('Admin')->group(function(){
     //public routes
-    Route::get('login', 'AuthController@form')->name('auth.form');
-    Route::post('login', 'AuthController@login')->name('login');
+    Route::get('login', 'AuthController@form')->name('admin.form');
+    Route::post('login', 'AuthController@login')->name('admin.login');
 
     //private routes
     Route::middleware('auth','lifetime')->group(function() {
