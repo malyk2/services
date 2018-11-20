@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::namespace('Front')->group(function(){
+    Route::get('/', 'HomeController@index');
+});
 Route::prefix('admin')->namespace('Admin')->group(function(){
     //public routes
     Route::get('login', 'AuthController@form')->name('login');
