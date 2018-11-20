@@ -11,6 +11,18 @@ use App\Http\Requests\Service\Save as SaveServiceRequest;
 
 class ServiceController extends Controller
 {
+    public function listServices()
+    {
+        $items = [];
+        return view('admin.service.list', compact('items'));
+    }
+
+    public function addService()
+    {
+        $types = ServiceType::get();
+        return view('admin.service.form', compact('types'));
+    }
+
     public function listTypes()
     {
         $items = ServiceType::paginate(ServiceType::PAGINATE_PER_PAGE);

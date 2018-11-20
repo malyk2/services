@@ -30,8 +30,8 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
         Route::prefix('services')->group(function(){
             //services types
             Route::get('/', 'ServiceController@listServices')->name('admin.service.list');
-            // Route::get('add', 'ServiceController@addType')->name('admin.service-type.add');
-            // Route::post('save/{serviceType?}', 'ServiceController@saveType')->name('admin.service-type.save');
+            Route::get('add', 'ServiceController@addService')->name('admin.service.add');
+            Route::post('save/{service?}', 'ServiceController@saveService')->name('admin.service.save');
             // Route::get('edit/{serviceType}', 'ServiceController@editType')->name('admin.service-type.edit');
             // Route::get('delete/{serviceType}', 'ServiceController@deleteType')->name('admin.service-type.delete');
             Route::prefix('types')->group(function(){
