@@ -32,6 +32,10 @@ class User extends Authenticatable
     ];
 
     /**Start relations */
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
     /**End relations */
 
     /**Start Mutators*/

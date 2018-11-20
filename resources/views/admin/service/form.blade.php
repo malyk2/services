@@ -1,12 +1,48 @@
 @extends('admin.layouts.app')
 @include('modules.iCheck')
 @include('modules.inputmask')
+@include('modules.moment')
+@include('modules.daterangepicker')
 @section('content')
 @push('js')
 <script>
-    // $(function(){
-    //     $('#duration').inputmask({ alias: "hh:mm"});
-    // });
+    var cb = function(start, end, label) {
+        $('#reportrange_right span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    };
+
+    var optionSet1 = {
+        startDate: moment(),
+        endDate: moment().endOf('month'),
+        minDate: moment(),
+        maxDate: '12/31/2020',
+        showDropdowns: true,
+        showWeekNumbers: true,
+        timePicker: false,
+        timePickerIncrement: 1,
+        timePicker12Hour: true,
+        ranges: {
+            'Today': [moment(), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+        },
+        opens: 'right',
+        buttonClasses: ['btn btn-default'],
+        applyClass: 'btn-small btn-primary',
+        cancelClass: 'btn-small',
+        locale: {
+            format: 'DD.MM.YYYY',
+            applyLabel: 'Submit',
+            cancelLabel: 'Clear',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Manual',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
+        }
+    };
+
+    $('#range').daterangepicker(optionSet1, cb);
+
 </script>
 @endpush
 <div class="right_col" role="main">
@@ -29,16 +65,8 @@
                     <div class="x_content">
                         <form class="form-horizontal form-label-left" action="{{ route('admin.service.save',[ ! empty($item) ? $item->id : null]) }}" method="post" autocomplete="nope">
                             @csrf
-                            {{-- <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Name <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="first-name" name="name" class="form-control col-md-7 col-xs-12 {{ $errors->has('name') ? 'parsley-error' : '' }}" value="{{ old('name', ( ! empty($item) ? $item->name : '')) }}">
-                                    {!! formErrors('name') !!}
-                                </div>
-                            </div> --}}
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Type<span class="required">*</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Type <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     @if(count($types))
                                         <select class="form-control" name="type_id">
@@ -62,11 +90,29 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="duration">Duration <span class="required">*</span>
-                                    </label>
+                                </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="duration" name="duration" class="form-control col-md-7 col-xs-12 {{ $errors->has('duration') ? 'parsley-error' : '' }}" value="{{ old('duration', ( ! empty($item) ? $item->duration : '')) }}" data-inputmask="'alias': 'hh:mm'">
-                                        {!! formErrors('duration') !!}
+                                    {!! formErrors('duration') !!}
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="range">Range <span class="required">*</span>
+                                </label>
+                                <fieldset>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend input-group">
+                                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                <input type="text" style="width: 200px" name="range" id="range" class="form-control {{ $errors->has('range') ? 'parsley-error' : '' }}" value="21.11.2018 - 30.11.2018" readonly/>
+                                                {!! formErrors('range') !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </fieldset>
                             </div>
 
                             <div class="ln_solid"></div>

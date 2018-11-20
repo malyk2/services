@@ -14,3 +14,29 @@ if (! function_exists('formErrors')) {
         return $result;
     }
 }
+
+if (! function_exists('timeToSeconds')) {
+
+    function timeToSeconds($time)
+    {
+        $parsed = date_parse($time);
+        $seconds = $parsed['hour'] * 3600 + $parsed['minute'] * 60 + $parsed['second'];
+        return $seconds;
+    }
+}
+
+if (! function_exists('stringToCarbon')) {
+
+    function stringToCarbon($string)
+    {
+        if (is_string($string)) {
+            try{
+                return \Carbon\Carbon::parse($string);
+            } catch(\Exception $e) {
+                return null;
+            }
+        } else {
+            return $value;
+        }
+    }
+}
