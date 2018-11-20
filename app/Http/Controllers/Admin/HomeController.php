@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Profile\Profile as ProfileRequest;
 use App\Http\Requests\Profile\ChangePassword as ChangePasswordRequest;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {

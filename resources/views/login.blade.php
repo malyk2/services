@@ -5,27 +5,24 @@
         <section class="login_content">
             <form action="{{ route('login') }}" method="post">
                 @csrf
-                <h1>Авторизація</h1>
+                <h1>Sign in</h1>
                 <div class="form-group">
-                    <input type="text" class="form-control {{ $errors->has('name') ? 'parsley-error' : '' }}" name="name" placeholder="Логін" value="{{ ! is_null(old('name')) ? old('name') : '' }}" />
-                    {!! formErrors('name') !!}
+                    <input type="text" class="form-control {{ $errors->has('email') ? 'parsley-error' : '' }}" name="email" placeholder="E-mail" value="{{ ! is_null(old('email')) ? old('email') : '' }}" />
+                    {!! formErrors('email') !!}
                 </div>
                 <div>
-                    <input type="password" class="form-control {{ $errors->has('password') ? 'parsley-error' : '' }}" name="password"  placeholder="Пароль" />
+                    <input type="password" class="form-control {{ $errors->has('password') ? 'parsley-error' : '' }}" name="password"  placeholder="Password" />
                     {!! formErrors('password') !!}
                 </div>
                 <div>
-                    {{-- <a class="btn btn-default submit" href="index.html">Log in</a> --}}
-                    <button class="btn btn-default submit" type="submit">Вхід</button>
-                    {{-- <a class="reset_pass" href="#">Lost your password?</a> --}}
+                    <button class="btn btn-default submit" type="submit">Login</button>
                 </div>
 
                 <div class="clearfix"></div>
 
                 <div class="separator">
                     <div>
-                        <h1><i class="fa fa-object-ungroup"></i> Smart services</h1>
-                        {{-- <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p> --}}
+                        <h1><i class="fa fa-object-ungroup"></i> Services</h1>
                     </div>
                 </div>
             </form>

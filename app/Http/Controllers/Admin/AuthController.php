@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\Auth\Login as LoginRequests;
+use App\Http\Requests\Admin\Auth\Login as LoginRequests;
 use App\Exceptions\PermissionException;
+use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {

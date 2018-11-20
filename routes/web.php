@@ -14,7 +14,7 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->namespace('Admin')->group(function(){
     //public routes
     Route::get('login', 'AuthController@form')->name('auth.form');
     Route::post('login', 'AuthController@login')->name('login');
