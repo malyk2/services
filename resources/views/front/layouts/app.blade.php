@@ -43,7 +43,7 @@
     <script src="{{ asset('vendors/fastclick/lib/fastclick.js') }}"></script>
     <!-- NProgress -->
     <script src="{{ asset('vendors/nprogress/nprogress.js') }}"></script>
-
+    @stack('js')
     <!-- Custom Theme Scripts -->
   </body>
 </html>
