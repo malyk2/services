@@ -117,7 +117,7 @@
             </div> --}}
             <div class="form-group">
                 <select class="form-control input-sm select2_group">
-                    <option value="">Choose servise</option>
+                    <option value="">Choose service</option>
                     @foreach ($types as $type)
                         <optgroup label="{{ $type->name }}">
                             @foreach ($type->services as $service)
