@@ -203,6 +203,15 @@ class App {
         console.log('init_InputMask');
 
         $(":input").inputmask();
+    };
+
+    pnotify(title, text, type) {
+        new PNotify({
+            title: title,
+            text: text,
+            type: type,
+            styling: 'bootstrap3'
+        });
     }
 }
 let app = new App();

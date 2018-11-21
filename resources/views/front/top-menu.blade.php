@@ -8,9 +8,9 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                         <ul class="nav navbar-nav">
-                            <li class="active">
+                            {{-- <li class="active">
                                 <a href="#">Services <span class="sr-only">(current)</span></a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>

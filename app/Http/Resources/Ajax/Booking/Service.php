@@ -21,6 +21,7 @@ class Service extends JsonResource
             'price' => $this->price,
             'from' => $this->from->format('Y-m-d'),
             'to' => $this->to->format('Y-m-d'),
+            'events' => $this->whenLoaded('bookings', BookingEvent::collection($this->bookings)),
         ];
     }
 }

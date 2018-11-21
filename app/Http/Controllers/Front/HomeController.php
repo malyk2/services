@@ -8,6 +8,7 @@ use App\Service;
 use App\ServiceType;
 use App\Http\Requests\Front\SaveBooking as SaveBookingRequest;
 use App\Http\Resources\Ajax\Booking\Service as ServiceResouce;
+use App\Http\Resources\Ajax\Booking\BookingEvent as BookingEventResouce;
 
 class HomeController extends Controller
 {
@@ -21,6 +22,7 @@ class HomeController extends Controller
     public function getBookingInfo(Service $service)
     {
         // dd($service);
+        $service->load('bookings');
         return new ServiceResouce($service);
     }
 
@@ -32,8 +34,8 @@ class HomeController extends Controller
             'to' => stringToCarbon($request->date.$request->time_to),
         ];
         try {
-            $service->bookings()->create($data);
-            return response([true]);
+            $booking = $service->bookings()->create($data);
+            return response(new BookingEventResouce($booking));
         } catch(\Exception $e) {
             return respponse([], 500);
         }

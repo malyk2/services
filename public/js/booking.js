@@ -13,17 +13,6 @@ class Booking {
         $(".select2_group").select2({});
     };
     initCalendar(data) {
-        // console.log('CC');
-        // console.log(data);
-        var date = new Date(),
-        d = date.getDate(),
-        m = date.getMonth(),
-        y = date.getFullYear(),
-        started,
-        categoryClass;
-
-        // console.log('00:20');
-        // console.log(data.duration_hours);
         var calendar = $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next',
@@ -42,56 +31,18 @@ class Booking {
                 booking.showBookingModal(start, end);
             },
             validRange: {
-                start: moment(),
+                start: moment(data.from) < moment() ? moment() : data.from,
                 end: data.to
             },
-            eventClick: function(calEvent, jsEvent, view) {
-                // console.log('eventClick');
-                // $('#fc_edit').click();
-                // $('#title2').val(calEvent.title);
-
-                // categoryClass = $("#event_type").val();
-
-                // $(".antosubmit2").on("click", function() {
-                //     calEvent.title = $("#title2").val();
-
-                //     calendar.fullCalendar('updateEvent', calEvent);
-                //     $('.antoclose2').click();
-                // });
-
-                // calendar.fullCalendar('unselect');
-            },
-            // editable: true,
-            // events: [{
-            //     title: 'All Day Event',
-            //     start: new Date(y, m, 1)
-            // }, {
-            //     title: 'Long Event',
-            //     start: new Date(y, m, d - 5),
-            //     end: new Date(y, m, d - 2)
-            // }, {
-            //     title: 'Meeting',
-            //     start: new Date(y, m, d, 10, 30),
-            //     allDay: false
-            // }, {
-            //     title: 'Lunch',
-            //     start: new Date(y, m, d + 14, 12, 0),
-            //     end: new Date(y, m, d, 14, 0),
-            //     allDay: false
-            // }, {
-            //     title: 'Birthday Party',
-            //     start: new Date(y, m, d + 1, 19, 0),
-            //     end: new Date(y, m, d + 1, 22, 30),
-            //     allDay: false
-            // }, {
-            //     title: 'Click for Google',
-            //     start: new Date(y, m, 28),
-            //     end: new Date(y, m, 29),
-            //     url: 'http://google.com/'
-            // }]
+            events: data.events,
             });
         this.calendar = calendar;
     };
+    destroyCalendar(){
+        if(this.calendar) {
+            this.calendar.fullCalendar('destroy');
+        }
+    }
     showBookingModal(start, end) {
         let modal = $('#booking-modal');
         modal.find('#booking-date').val(start.format('DD.MM.YYYY'))
@@ -101,16 +52,14 @@ class Booking {
     }
     changeServise(e) {
         let serviceID = $(this).val();
-        if(serviceID == '') {
-            //hide calendar
-        } else {
+        booking.destroyCalendar();
+        if(serviceID !== '') {
             $.ajax({
                 url: '/ajax/booking/'+serviceID,
                 method: 'GET',
                 dataType: 'json',
                 success: data => {
                     booking.serviceId = data.data.id;
-                    console.log(booking.serviceId);
                     booking.initCalendar(data.data);
                 }
             });
@@ -120,25 +69,21 @@ class Booking {
         let form = $('#booking-form');
         let sendData = form.serialize();
 
-        // console.log(booking);
-        // console.log(booking.serviceId);
-        // console.log(booking.serviceId);
         $.ajax({
             url: '/ajax/booking/'+booking.serviceId,
             method: 'POST',
             data: sendData,
             dataType: 'json',
             success: data => {
-                console.log('success');
-                // booking.initCalendar(data.data);
+                booking.calendar.fullCalendar('renderEvent', data,true);
+                $('#booking-modal').modal('hide');
+                app.pnotify('Success', 'Booking saved', 'success');
             },
             statusCode: {
                 422: function(xhr) {
                     var data = JSON.parse(xhr.responseText);
-                    console.log(data);
                     for (const i in data.errors) {
                         let input = form.find('input[name='+i+']');
-                        console.log(input);
                         input.closest('.form-group').addClass('has-error');
                         input.next('.help-block').text(data.errors[i][0]);
                     }
