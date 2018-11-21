@@ -13,6 +13,7 @@ class Booking {
         $(".select2_group").select2({});
     };
     initCalendar(data) {
+        let startDate = moment(data.from) < moment() ? moment().subtract(1, 'days') : moment(data.from);
         var calendar = $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next',
@@ -20,6 +21,7 @@ class Booking {
                 right: 'agendaWeek,agendaDay'
             },
             defaultView: 'agendaWeek',
+            dateAlignment: startDate,
             selectable: true,
             selectHelper: true,
             slotDuration: data.duration_hours,
@@ -31,8 +33,8 @@ class Booking {
                 booking.showBookingModal(start, end);
             },
             validRange: {
-                start: moment(data.from) < moment() ? moment() : data.from,
-                end: data.to
+                start: startDate,
+                end: moment(data.to).add(1, 'days')
             },
             events: data.events,
             });
@@ -97,7 +99,7 @@ class Booking {
         $("#booking-page").on('click', '#booking-form-submit', this.sendBooking);
     };
     init() {
-        this.initDatepicker();
+        // this.initDatepicker();
         this.initSelect2();
         this.initActions();
     }

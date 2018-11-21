@@ -12,6 +12,18 @@ class ServiceType extends Model
         'name',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($model)
+        {
+            foreach ($model->services as $servise) {
+                $servise->delete();
+            }
+        });
+    }
+
     /**Start Relations */
     public function services()
     {

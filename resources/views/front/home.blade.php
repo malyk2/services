@@ -110,11 +110,11 @@
 <div class="row">
     <div id="booking-page" class="col-lg-12">
         <div class="col-lg-2">
-            <div class="xdisplay_inputx form-group has-feedback">
+            {{-- <div class="xdisplay_inputx form-group has-feedback">
                 <input type="text" class="form-control has-feedback-left input-sm" id="date-booking" placeholder="Select date" aria-describedby="inputSuccess2Status3">
                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                 <span id="inputSuccess2Status3" class="sr-only">(success)</span>
-            </div>
+            </div> --}}
             <div class="form-group">
                 <select class="form-control input-sm select2_group">
                     <option value="">Choose servise</option>

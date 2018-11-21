@@ -24,6 +24,18 @@ class Service extends Model
         'to',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($model)
+        {
+            foreach ($model->bookings as $booking) {
+                $booking->delete();
+            }
+        });
+    }
+
     /**Start Relations */
     public function type()
     {
