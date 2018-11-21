@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\RedirectResponse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // \App\User::observe(\App\Observers\UserObserver::class);
+        // \App\Group::observe(\App\Observers\GroupObserver::class);
     }
 
     /**
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //Response macros for pnotify
+        RedirectResponse::macro('pnotify', function($title = '', $text = '', $type = 'success'){
+            session()->flash('pnotify.title', $title);
+            session()->flash('pnotify.type', $type);
+            session()->flash('pnotify.text', $text);
+            return $this;
+        });
     }
 }

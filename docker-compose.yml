@@ -1,0 +1,54 @@
+version: '2'
+services:
+    web:
+        build:
+            context: ./
+            dockerfile: deploy/web.docker
+        volumes:
+            - ./:/var/www
+        ports:
+            - "8080:80"
+        links:
+            - app
+        extra_hosts:
+            - "treevially.dda:172.24.0.1"
+    app:
+        container_name: servicesda_app_1
+        build:
+            context: ./
+            dockerfile: deploy/app.docker
+        volumes:
+            - ./:/var/www
+        links:
+            - database
+            - cache
+            - mailhog
+        environment:
+            - "DB_PORT=3306"
+            - "DB_HOST=database"
+            - "DB_DATABASE=db"
+            - "DB_USERNAME=root"
+            - "DB_PASSWORD=root"
+            - "REDIS_PORT=6379"
+            - "REDIS_HOST=cache"
+        extra_hosts:
+            - "services.dda:172.24.0.1"
+    database:
+        image: mysql:5.7
+        environment:
+            - "MYSQL_ROOT_PASSWORD=root"
+            - "MYSQL_DATABASE=db"
+        ports:
+            - "33061:3306"
+    cache:
+        image: redis:3.0
+        ports:
+            - "63791:6379"
+        extra_hosts:
+            - "services.dda:172.24.0.1"
+    mailhog:
+            build:
+                context: ./
+                dockerfile: deploy/mailhog.docker
+            ports:
+                - "8025:8025"

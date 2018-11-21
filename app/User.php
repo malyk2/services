@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    const PAGINATE_PER_PAGE = 10;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -27,4 +30,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**Start relations */
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+    /**End relations */
+
+    /**Start Mutators*/
+    public function setPasswordAttribute($value)
+    {
+        ! empty($value) ? $this->attributes['password'] = bcrypt($value) : false;
+    }
+    /**End mutators */
+
+    /**Start Helper*/
+    /**End Helper*/
 }
