@@ -59,7 +59,7 @@
                                     @if(count($types))
                                         <select class="form-control" name="type_id">
                                             @foreach($types as $type)
-                                                <option value="{{ $type->id }}"  {{ ! empty($item) && $item->type_id == $type->id ? 'selected="selected"' : '' }} >{{ $type->name }}</option>
+                                                <option value="{{ $type->id }}"  {{ ! empty($item) && old('type_id', $item->type_id) == $type->id ? 'selected="selected"' : (old('type_id') == $type->id ? 'selected' : '') }} >{{ $type->name }}</option>
                                             @endforeach
                                         </select>
                                     @else
