@@ -4,8 +4,8 @@
     $('#bottom-logout').on('click', function(e){
       e.preventDefault();
       new PNotify({
-        title: 'Підтвердження',
-        text: 'Вийти з системи?',
+        title: 'Confirmation',
+        text: 'Quit the system?',
         icon: 'glyphicon glyphicon-question-sign',
         hide: true,
         confirm: {
@@ -79,13 +79,16 @@
 
       <!-- /menu footer buttons -->
       <div class="sidebar-footer hidden-small">
+        <a href="#" data-toggle="tooltip" data-placement="top" title="">
+          <span class="glyphicon" aria-hidden="true"></span>
+        </a>
         <a href="{{ route('admin.home') }}" data-toggle="tooltip" data-placement="top" title="Home">
           <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
         </a>
-        <a href="{{ route('profile.form') }}" data-toggle="tooltip" data-placement="top" title="Settings">
+        {{-- <a href="{{ route('profile.form') }}" data-toggle="tooltip" data-placement="top" title="Settings"> --}}
+        <a href="#" data-toggle="tooltip" data-placement="top" title="">
           <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
         </a>
-        <a id="user-time"></a>
         <a href="{{ route('logout') }}" id="bottom-logout" data-toggle="tooltip" data-placement="top" title="Logout">
           <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
         </a>
