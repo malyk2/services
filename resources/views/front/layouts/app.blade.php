@@ -44,6 +44,7 @@
     <script src="{{ asset('vendors/fastclick/lib/fastclick.js') }}"></script>
     <!-- NProgress -->
     <script src="{{ asset('vendors/nprogress/nprogress.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @stack('js')
     <!-- Custom Theme Scripts -->
   </body>

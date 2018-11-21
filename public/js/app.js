@@ -210,4 +210,4 @@ app.initNbProgress();
 app.initSidebar();
 app.initPanelToolbox();
 app.alaxSetup();
-app.initLifetime();
+// app.initLifetime();
