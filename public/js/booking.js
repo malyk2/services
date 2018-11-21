@@ -21,7 +21,6 @@ class Booking {
                 right: 'agendaWeek,agendaDay'
             },
             defaultView: 'agendaWeek',
-            dateAlignment: startDate,
             selectable: true,
             selectHelper: true,
             slotDuration: data.duration_hours,
