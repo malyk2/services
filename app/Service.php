@@ -29,6 +29,11 @@ class Service extends Model
     {
         return $this->belongsTo(ServiceType::class);
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
     /**End Relations */
 
     /**Start Scopes*/

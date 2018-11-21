@@ -11,9 +11,13 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::namespace('Front')->group(function(){
+    Route::get('/', 'HomeController@index');
+    Route::prefix('ajax')->group(function(){
+        Route::get('booking/{service}', 'HomeController@getBookingInfo');
+        Route::post('booking/{service}', 'HomeController@saveBooking');
+    });
+});
 Route::prefix('admin')->namespace('Admin')->group(function(){
     //public routes
     Route::get('login', 'AuthController@form')->name('login');
@@ -43,6 +47,10 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             });
             //services
         });
+        // Route::prefix('ajax')->group(function(){
+        //     // Route::post('getPerms/{group?}/{role?}', 'UserController@getPerms');
+        //     // Route::post('getRoles/{group}/{user?}', 'UserController@getRoles');
+        // });
         // Route::prefix('users')->group(function(){
         //     //users routes
         //     Route::get('', 'UserController@listUsers')->name('user.listUsers');
