@@ -15,6 +15,7 @@ Route::namespace('Front')->group(function(){
     Route::get('/', 'HomeController@index');
     Route::prefix('ajax')->group(function(){
         Route::get('booking/{service}', 'HomeController@getBookingInfo');
+        Route::post('booking/{service}', 'HomeController@saveBooking');
     });
 });
 Route::prefix('admin')->namespace('Admin')->group(function(){

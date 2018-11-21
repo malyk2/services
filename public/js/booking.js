@@ -1,4 +1,8 @@
 class Booking {
+    constructor() {
+        this.calendar = null;
+        this.serviceId = null;
+    };
     initDatepicker() {
         $('#date-booking').daterangepicker({
             singleDatePicker: true,
@@ -35,24 +39,14 @@ class Booking {
                 return duration.asSeconds() <= data.duration;
             },
             select: function(start, end, allDay) {
-                // console.log('start');
-                // console.log(start);
-                // console.log('end');
-                // console.log(end);
-                // console.log('allDay');
-                // console.log(allDay);
-                console.log('SELECT');
-                // console.log(data);
-                // $('#fc_create').click();
-                // started = start;
-                // ended = end;
+                booking.showBookingModal(start, end);
             },
             validRange: {
                 start: moment(),
                 end: data.to
             },
             eventClick: function(calEvent, jsEvent, view) {
-                console.log('eventClick');
+                // console.log('eventClick');
                 // $('#fc_edit').click();
                 // $('#title2').val(calEvent.title);
 
@@ -66,13 +60,6 @@ class Booking {
                 // });
 
                 // calendar.fullCalendar('unselect');
-            },
-            eventRender: function(event, element) {
-                console.log('RENDER');
-                console.log(event.end.date);
-                if (element.find(".fc-helper")){
-                    element.find(".fc-time").text('my-string');
-                }
             },
             // editable: true,
             // events: [{
@@ -103,7 +90,15 @@ class Booking {
             //     url: 'http://google.com/'
             // }]
             });
+        this.calendar = calendar;
     };
+    showBookingModal(start, end) {
+        let modal = $('#booking-modal');
+        modal.find('#booking-date').val(start.format('DD.MM.YYYY'))
+        modal.find('#booking-time-from').val(start.format('HH:mm'))
+        modal.find('#booking-time-to').val(end.format('HH:mm'))
+        $('#booking-modal').modal('show');
+    }
     changeServise(e) {
         let serviceID = $(this).val();
         if(serviceID == '') {
@@ -114,13 +109,47 @@ class Booking {
                 method: 'GET',
                 dataType: 'json',
                 success: data => {
+                    booking.serviceId = data.data.id;
+                    console.log(booking.serviceId);
                     booking.initCalendar(data.data);
                 }
             });
         }
     };
+    sendBooking(e) {
+        let form = $('#booking-form');
+        let sendData = form.serialize();
+
+        // console.log(booking);
+        // console.log(booking.serviceId);
+        // console.log(booking.serviceId);
+        $.ajax({
+            url: '/ajax/booking/'+booking.serviceId,
+            method: 'POST',
+            data: sendData,
+            dataType: 'json',
+            success: data => {
+                console.log('success');
+                // booking.initCalendar(data.data);
+            },
+            statusCode: {
+                422: function(xhr) {
+                    var data = JSON.parse(xhr.responseText);
+                    console.log(data);
+                    for (const i in data.errors) {
+                        let input = form.find('input[name='+i+']');
+                        console.log(input);
+                        input.closest('.form-group').addClass('has-error');
+                        input.next('.help-block').text(data.errors[i][0]);
+                    }
+                }
+            }
+
+        });
+    }
     initActions() {
         $("#booking-page").on('change', '.select2_group', this.changeServise);
+        $("#booking-page").on('click', '#booking-form-submit', this.sendBooking);
     };
     init() {
         this.initDatepicker();

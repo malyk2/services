@@ -1,12 +1,11 @@
 @extends('front.layouts.app')
-@include('modules.select2')
-@include('modules.moment')
-@include('modules.daterangepicker')
-@include('modules.fullcalendar')
-@push('js')
+    @include('modules.select2')
+    @include('modules.moment')
+    @include('modules.daterangepicker')
+    @include('modules.fullcalendar') @push('js')
 <script src="{{ asset('js/booking.js') }}"></script>
 <script>
-$(function(){
+    $(function(){
     // console.log('init_calendar');
 
     // var date = new Date(),
@@ -102,7 +101,9 @@ $(function(){
     //     // }]
     // });
 });
+
 </script>
+
 
 @endpush
 @section('content')
@@ -129,8 +130,10 @@ $(function(){
         </div>
         <div class="col-lg-10">
             <div id="calendar">
+            </div>
         </div>
-        </div>
+        @include('front.modals.booking')
+
     </div>
 </div>
 @endsection
