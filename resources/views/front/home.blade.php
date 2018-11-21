@@ -1,5 +1,6 @@
 @extends('front.layouts.app')
 @include('modules.moment')
+@include('modules.daterangepicker')
 @include('modules.fullcalendar')
 @push('js')
 <script>
@@ -15,90 +16,95 @@ $(function(){
 
     var calendar = $('#calendar').fullCalendar({
         header: {
-            left: 'prev,next today',
+            left: 'prev,next',
             center: 'title',
             right: 'month,agendaWeek,agendaDay,listMonth'
         },
+        defaultView: 'agendaWeek',
         selectable: true,
         selectHelper: true,
+        slotDuration: '00:20',
+        selectAllow: function(selectInfo) {
+            var duration = moment.duration(selectInfo.end.diff(selectInfo.start));
+            console.log('duration');
+            console.log(duration.asSeconds());
+            return duration.asSeconds() <= 3600;
+            return duration.asHours() <= 4;
+        },
         select: function(start, end, allDay) {
-        $('#fc_create').click();
-
-        started = start;
-        ended = end;
-
-        $(".antosubmit").on("click", function() {
-            var title = $("#title").val();
-            if (end) {
+            // console.log('start');
+            // console.log(start);
+            // console.log('end');
+            // console.log(end);
+            // console.log('allDay');
+            // console.log(allDay);
+            // console.log('SELECT');
+            // $('#fc_create').click();
+            started = start;
             ended = end;
-            }
-
-            categoryClass = $("#event_type").val();
-
-            if (title) {
-            calendar.fullCalendar('renderEvent', {
-                title: title,
-                start: started,
-                end: end,
-                allDay: allDay
-                },
-                true // make the event "stick"
-            );
-            }
-
-            $('#title').val('');
-
-            calendar.fullCalendar('unselect');
-
-            $('.antoclose').click();
-
-            return false;
-        });
+        },
+        validRange: {
+            start: moment(),
+            end: '2018-11-27'
         },
         eventClick: function(calEvent, jsEvent, view) {
-            console.log('click');
-            $('#fc_edit').click();
-            $('#title2').val(calEvent.title);
+            console.log('eventClick');
+            // $('#fc_edit').click();
+            // $('#title2').val(calEvent.title);
 
-            categoryClass = $("#event_type").val();
+            // categoryClass = $("#event_type").val();
 
-            $(".antosubmit2").on("click", function() {
-                calEvent.title = $("#title2").val();
+            // $(".antosubmit2").on("click", function() {
+            //     calEvent.title = $("#title2").val();
 
-                calendar.fullCalendar('updateEvent', calEvent);
-                $('.antoclose2').click();
-            });
+            //     calendar.fullCalendar('updateEvent', calEvent);
+            //     $('.antoclose2').click();
+            // });
 
-            calendar.fullCalendar('unselect');
+            // calendar.fullCalendar('unselect');
         },
-        editable: true,
-        events: [{
-            title: 'All Day Event',
-            start: new Date(y, m, 1)
-        }, {
-            title: 'Long Event',
-            start: new Date(y, m, d - 5),
-            end: new Date(y, m, d - 2)
-        }, {
-            title: 'Meeting',
-            start: new Date(y, m, d, 10, 30),
-            allDay: false
-        }, {
-            title: 'Lunch',
-            start: new Date(y, m, d + 14, 12, 0),
-            end: new Date(y, m, d, 14, 0),
-            allDay: false
-        }, {
-            title: 'Birthday Party',
-            start: new Date(y, m, d + 1, 19, 0),
-            end: new Date(y, m, d + 1, 22, 30),
-            allDay: false
-        }, {
-            title: 'Click for Google',
-            start: new Date(y, m, 28),
-            end: new Date(y, m, 29),
-            url: 'http://google.com/'
-        }]
+        eventRender: function(event, element) {
+            console.log('RENDER');
+            console.log(event.end);
+            if (element.find(".fc-helper")){
+                element.find(".fc-time").text('my-string');
+            }
+        },
+        // editable: true,
+        // events: [{
+        //     title: 'All Day Event',
+        //     start: new Date(y, m, 1)
+        // }, {
+        //     title: 'Long Event',
+        //     start: new Date(y, m, d - 5),
+        //     end: new Date(y, m, d - 2)
+        // }, {
+        //     title: 'Meeting',
+        //     start: new Date(y, m, d, 10, 30),
+        //     allDay: false
+        // }, {
+        //     title: 'Lunch',
+        //     start: new Date(y, m, d + 14, 12, 0),
+        //     end: new Date(y, m, d, 14, 0),
+        //     allDay: false
+        // }, {
+        //     title: 'Birthday Party',
+        //     start: new Date(y, m, d + 1, 19, 0),
+        //     end: new Date(y, m, d + 1, 22, 30),
+        //     allDay: false
+        // }, {
+        //     title: 'Click for Google',
+        //     start: new Date(y, m, 28),
+        //     end: new Date(y, m, 29),
+        //     url: 'http://google.com/'
+        // }]
+    });
+
+    $('#date-booking').daterangepicker({
+        singleDatePicker: true,
+        singleClasses: "picker_3"
+    }, function(start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
     });
 });
 </script>
@@ -107,11 +113,22 @@ $(function(){
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        {{--
-        <h1>CONTENT</h1>
-        --}}
-        {{-- <h3>test</h3> --}}
-        <div id="calendar">
+        <div class="col-lg-2">
+            <fieldset>
+                <div class="control-group">
+                    <div class="controls">
+                    <div class="col-md-11 xdisplay_inputx form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" id="date-booking" placeholder="Select date" aria-describedby="inputSuccess2Status3">
+                        <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                        <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+                    </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-lg-10">
+            <div id="calendar">
+        </div>
         </div>
     </div>
 </div>

@@ -17,6 +17,7 @@
     <!-- NProgress -->
     <link href="{{ asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- Custom Theme Style -->
+
     <link href="{{ asset('css/front.css') }}" rel="stylesheet">
 
     @stack('css')
